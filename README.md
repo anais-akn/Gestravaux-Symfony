@@ -14,6 +14,7 @@
 - [Installation et lancement](#-installation-et-lancement)
 - [Créer un compte](#-créer-un-compte)
 - [Rôles et fonctionnalités](#-rôles-et-fonctionnalités)
+- [Identifiants de démonstration](#-mdp-unique-:-toto)
 - [Structure du projet](#-structure-du-projet)
 - [Variables d'environnement](#-variables-denvironnement)
 - [Commandes utiles](#-commandes-utiles)
@@ -61,8 +62,8 @@ Avant de lancer le projet, assurez-vous d'avoir installé :
 ### 1. Cloner le dépôt
 
 ```bash
-git clone https://github.com/le-rebours/2026-GR1-WEB-GESTRAVAUX.git
-cd 2026-GR1-WEB-GESTRAVAUX
+git clone https://github.com/anais-akn/Gestravaux-Symfony.git
+cd Gestravaux-Symfony
 ```
 
 ### 2. Installer les dépendances PHP
@@ -107,8 +108,7 @@ Cela lance :
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
 ```
-remplir la base de donées
-importer le fichier data.sql depuis PHPmyadmin
+Ouvrez phpMyAdmin (http://localhost:8081), sélectionnez la base app_db, allez dans l'onglet Importer et chargez le fichier data.sql situé à la racine du projet.
 
 ### 6. Lancer le serveur de développement
 
@@ -161,6 +161,15 @@ Remplissez le formulaire avec :
 - Adresse, Ville, Code postal
 
 ---
+
+## 🔑 Identifiants de démonstration (Mot de passe unique : `toto`)
+
+| Rôle | Adresse e-mail |
+| :--- | :--- |
+| **Administrateur** | `admin@immosync.fr` |
+| **Inspecteur** | `m.veron@immosync.fr` |
+| **Propriétaire** | `lucas.martin@gmail.com` |
+| **Entrepreneur** | `contact@bati-expert.fr` |
 
 ## 🎭 Rôles et fonctionnalités
 
