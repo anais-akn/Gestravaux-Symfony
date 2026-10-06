@@ -1,0 +1,130 @@
+/* ============================================================
+   DASHBOARD PROPRIETAIRE - Tableau de bord propriétaire
+   ============================================================ */
+
+body {
+    background-color: var(--bg-light);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- LOGO DANS LE HEADER --- */
+.logo-container {
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: -1px;
+    margin-bottom: 15px;
+}
+
+/* --- STRUCTURE HEADER --- */
+.dashboard-header {
+    background: var(--primary-gradient);
+    padding: 2.5rem 0 6rem 0;
+    color: white;
+    border-radius: 0 0 40px 40px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.user-badge {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* --- SECTION CARTES --- */
+.content-section {
+    margin-top: -3.5rem;
+    position: relative;
+    z-index: 2;
+    padding-bottom: 3rem;
+}
+
+.chantier-card {
+    background: white;
+    border-radius: 24px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(45, 45, 90, 0.08);
+    height: 100%;
+    border: none;
+}
+
+.status-pill {
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: #fff3e0;
+    color: var(--accent-orange);
+}
+
+.btn-details {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btn-details:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(126, 140, 224, 0.3);
+}
+
+/* Grid responsive */
+.chantiers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 3rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-header {
+        padding: 2rem 0 4rem 0;
+    }
+
+    .chantiers-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+    }
+
+    .chantier-card {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-header {
+        padding: 1.5rem 0 3rem 0;
+        border-radius: 0 0 20px 20px;
+    }
+
+    .content-section {
+        margin-top: -2rem;
+        padding: 0 15px 2rem 15px;
+    }
+
+    .chantiers-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chantier-card {
+        padding: 15px;
+    }
+
+    .logo-container {
+        font-size: 1.4rem;
+    }
+}

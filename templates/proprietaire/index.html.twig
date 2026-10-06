@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/proprietaire_dashboard.css') }}">
+{% endblock %}
+
+{% block body %}
+    {# 1. Le Header tout en haut #}
+    <header class="owner-navbar">
+        <div class="header-flex">
+            <div class="logo-area">
+                <span class="logo-immo">IMMO</span><span class="logo-sync">SYNC</span>
+            </div>
+            <div>
+                Bienvenue, <strong>{{ app.user.prenom }} {{ app.user.nom }}</strong>
+            </div>
+            <div class="nav-btns">
+                <a href="{{ path('app_proprietaire_comparatif') }}" class="btn btn-sm btn-primary">Comparer Devis</a>
+                <a href="{{ path('app_logout') }}" class="btn btn-sm btn-outline-danger">Quitter</a>
+            </div>
+        </div>
+    </header>
+
+    {# 2. Le contenu en dessous #}
+    <main class="main-content">
+        <h1 class="page-title">Mes chantiers en cours</h1>
+
+        <div class="chantier-grid">
+            {% for chantier in chantiers %}
+                {# On ne voit pas les chantiers annulés #}
+                {% if chantier.statut != 'Annulé' %}
+                    <div class="chantier-card">
+                        <div class="status-badge">{{ chantier.statut }}</div>
+                        <h3 class="address">{{ chantier.bien.adresse }}</h3>
+                        <p class="city">{{ chantier.bien.ville }} ({{ chantier.bien.codePostal }})</p>
+                        <p class="desc">{{ chantier.description|slice(0, 100) }}...</p>
+                        
+                        <div class="card-footer">
+                            <span>Créé le {{ chantier.dateCreation|date('d/m/Y') }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </main>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/entrepreneur.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="entrepreneur-wrapper">
+    <header class="main-header">
+        <div class="header-content">
+            <a href="{{ path('app_entrepreneur_dashboard') }}" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Retour
+            </a>
+            <h1 class="header-title">Répondre au Devis Type #{{ devisType.id }}</h1>
+            <div style="width: 100px;"></div> {# Équilibre visuel #}
+        </div>
+    </header>
+
+    <main class="container-main-content">
+        <div class="container">
+            <div class="card shadow-sm border-0 rounded-3 p-4">
+                <h4 class="mb-4 text-primary">{{ devisType.intitule }}</h4>
+                <p class="text-muted"><i class="fas fa-map-marker-alt"></i> Chantier : {{ devisType.chantier.bien.adresse }}, {{ devisType.chantier.bien.ville }}</p>
+                <form action="{{ path('app_entrepreneur_devis_submit', {'id': devisType.id}) }}" method="POST">
+                    <div class="table-responsive mt-4">
+                        <table class="table align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Prestation</th>
+                                    <th>Quantité</th>
+                                    <th style="width: 200px;">Votre Prix Unitaire (HT)</th>
+                                    <th class="text-end">Total estimé</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {# On boucle sur les prestations du devis type #}
+
+                                {% for ligne in devisType.devisTypePrestations %}
+                                    <tr>
+                                        <td>
+                                            {# ATTENTION : Vérifie si c'est .prestataire ou .idPrestataire #}
+                                            <span class="fw-bold">{{ ligne.prestataire.libelle|default('Prestation sans nom') }}</span>
+                                            <small class="d-block text-muted">{{ ligne.prestataire.description|default('') }}</small>
+                                        </td>
+                                        <td><span class="badge bg-secondary">{{ ligne.quantite }}</span></td>
+                                            <td>
+                                                <div class="input-group">
+                                                    {# On affiche le prix de base du prestataire comme valeur par défaut #}
+                                                    <input type="number" step="0.01" name="prix[{{ ligne.prestataire.id }}]" 
+                                                        class="form-control" 
+                                                        value="{{ ligne.prestataire.prixBase }}" 
+                                                        required>
+                                                    <span class="input-group-text">€</span>
+                                                </div>
+                                            </td>
+                                            <td class="text-end">
+                                                {# Calcul direct : quantité (de devis_type_prestation) * prix_base (de prestataire) #}
+                                                <span class="fw-bold">
+                                                    {{ (ligne.quantite * ligne.prestataire.prixBase)|number_format(2, ',', ' ') }} €
+                                                </span>
+                                            </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="row mt-4 pt-4 border-top">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Délai estimé (en jours)</label>
+                            <input type="number" name="duree" class="form-control" required placeholder="Ex: 5">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold">Date de début possible</label>
+                            <input type="date" name="date_debut" class="form-control" required>
+                        </div>
+                    </div>
+
+                    <div class="mt-5 d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="fas fa-paper-plane me-2"></i>Envoyer ma proposition au propriétaire
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}

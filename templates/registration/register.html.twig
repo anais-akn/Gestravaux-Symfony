@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - ImmoSync{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/register_user.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+<div class="register-card">
+    {# Logo Branding #}
+    <div class="logo-container">
+        <span class="logo-immo">IMMO</span><span class="logo-sync">SYNC</span>
+    </div>
+    <p class="subtitle">Créez votre espace propriétaire</p>
+
+    <h1>Inscription</h1>
+
+    <form method="post">
+        <div class="row">
+            <div class="col-md-6">
+                <label for="inputNom" class="form-label">Nom</label>
+                <input type="text" name="nom" id="inputNom" class="form-control" placeholder="Nom" required>
+            </div>
+            <div class="col-md-6">
+                <label for="inputPrenom" class="form-label">Prénom</label>
+                <input type="text" name="prenom" id="inputPrenom" class="form-control" placeholder="Prénom" required>
+            </div>
+        </div>
+
+        <label for="inputEmail" class="form-label">Adresse Email</label>
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="votre@email.com" required autofocus>
+
+        <label for="inputTel" class="form-label">Téléphone</label>
+        <input type="tel" name="telephone" id="inputTel" class="form-control" placeholder="06 00 00 00 00" required>
+
+        <label for="inputAdresse" class="form-label">Adresse</label>
+        <input type="text" name="adresse" id="inputAdresse" class="form-control" placeholder="N° et nom de rue" required>
+
+        <div class="row">
+            <div class="col-8">
+                <label for="inputVille" class="form-label">Ville</label>
+                <input type="text" name="ville" id="inputVille" class="form-control" required>
+            </div>
+            <div class="col-4">
+                <label for="inputCP" class="form-label">Code Postal</label>
+                <input type="text" name="codePostal" id="inputCP" class="form-control" required>
+            </div>
+        </div>
+
+        <label for="inputPassword" class="form-label">Mot de passe</label>
+        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="new-password" placeholder="••••••••" required>
+
+        <div class="form-check">
+            <input type="checkbox" name="agreeTerms" id="agreeTerms" required>
+            <label class="form-check-label" for="agreeTerms">J'accepte les conditions</label>
+        </div>
+
+        <button class="btn-register" type="submit">S'inscrire</button>
+    </form>
+
+    <div class="login-footer">
+        Déjà un compte ? <a href="{{ path('app_login') }}">Connectez-vous</a>
+    </div>
+</div>
+{% endblock %}

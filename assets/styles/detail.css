@@ -1,0 +1,280 @@
+.detail-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+ 
+#map {
+    width: 100%;
+    height: 400px;  /* ← Réduit de 500px à 400px */
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(45, 45, 90, 0.08);
+   
+}
+ 
+.detail-container {
+    max-width: 1400px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+ 
+.detail-card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(45, 45, 90, 0.05);
+}
+ 
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+ 
+.detail-title {
+    font-size: 2rem;
+    color: #2D2D5A;
+    font-weight: 800;
+    margin: 0;
+}
+ 
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 20px;
+}
+ 
+.info-box {
+    background: #F8FAFF;
+    padding: 15px;
+    border-radius: 12px;
+}
+ 
+.info-label {
+    color: #7E8CE0;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+ 
+.info-value {
+    color: #2D2D5A;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 5px;
+}
+ 
+.btn-back {
+    background: #7E8CE0;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+ 
+.btn-back:hover {
+    background: #5A6BA8;
+    transform: translateX(-3px);
+}
+ 
+/* --- HEADER RESPONSIVE --- */
+.owner-navbar {
+    width: 100%;
+    background: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+ 
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+ 
+.logo-area {
+    font-size: 1.6rem;
+    font-weight: 900;
+}
+ 
+.logo-immo {
+    color: #E6A13B;
+}
+ 
+.logo-sync {
+    color: #2D2D5A;
+}
+ 
+/* --- RESPONSIVE TABLET (1024px) --- */
+@media (max-width: 1024px) {
+    .detail-layout {
+        grid-template-columns: 1fr;
+    }
+ 
+    #map {
+        position: static;
+        height: 400px;
+    }
+ 
+    .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+ 
+    .detail-card {
+        padding: 25px;
+    }
+ 
+    .detail-title {
+        font-size: 1.6rem;
+    }
+}
+ 
+/* --- RESPONSIVE MOBILE (768px) --- */
+@media (max-width: 768px) {
+    .detail-container {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+ 
+    .detail-layout {
+        gap: 20px;
+    }
+ 
+    #map {
+        height: 350px;
+        border-radius: 12px;
+    }
+ 
+    .detail-card {
+        padding: 20px;
+        border-radius: 12px;
+    }
+ 
+    .detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+ 
+    .detail-title {
+        font-size: 1.4rem;
+    }
+ 
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+ 
+    .info-box {
+        padding: 12px;
+    }
+ 
+    .info-label {
+        font-size: 0.75rem;
+    }
+ 
+    .info-value {
+        font-size: 1rem;
+    }
+ 
+    .owner-navbar {
+        padding: 0.75rem 0;
+    }
+ 
+    .header-flex {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+ 
+    .logo-area {
+        font-size: 1.3rem;
+    }
+ 
+    .btn-back {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+ 
+/* --- RESPONSIVE PETIT MOBILE (480px) --- */
+@media (max-width: 480px) {
+    .detail-container {
+        margin: 15px auto;
+        padding: 0 10px;
+    }
+ 
+    #map {
+        height: 300px;
+        margin-bottom: 20px;
+    }
+ 
+    .detail-card {
+        padding: 15px;
+    }
+ 
+    .detail-header {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 20px;
+    }
+ 
+    .detail-title {
+        font-size: 1.2rem;
+        width: 100%;
+    }
+ 
+    .detail-header span {
+        width: 100%;
+    }
+ 
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+ 
+    .info-box {
+        padding: 10px;
+    }
+ 
+    .info-label {
+        font-size: 0.7rem;
+    }
+ 
+    .info-value {
+        font-size: 0.95rem;
+    }
+ 
+    .owner-navbar {
+        padding: 0.5rem 0;
+    }
+ 
+    .header-flex {
+        flex-direction: column;
+        gap: 8px;
+        padding: 0 10px;
+    }
+ 
+    .logo-area {
+        font-size: 1.1rem;
+    }
+ 
+    .btn-back {
+        width: 100%;
+        text-align: center;
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+}

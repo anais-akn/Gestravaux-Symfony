@@ -1,0 +1,119 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/proprietaire_comparatif.css') }}">
+{% endblock %}
+
+{% block body %}
+    {# --- HEADER GLOBAL --- #}
+    <header class="owner-navbar">
+        <div class="header-flex">
+            <div class="logo-area">
+                <span class="logo-immo">IMMO</span><span class="logo-sync">SYNC</span>
+            </div>
+            <nav class="nav-links">
+                <a href="{{ path('app_proprietaire_dashboard') }}">Mon Dashboard</a>
+                <a href="{{ path('app_proprietaire_comparatif') }}" class="active">Comparer les Devis</a>
+                <a href="{{ path('app_logout') }}" class="logout-link">Déconnexion</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <h1 class="page-title">Comparaison des devis par chantier</h1>
+
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+
+        {% for chantier in chantiers %}
+            <section class="chantier-section">
+                <div class="chantier-header">
+                    <h2>{{ chantier.bien.adresse }}</h2>
+                    <span class="chantier-info">{{ chantier.bien.ville }} — {{ chantier.description|slice(0, 60) }}...</span>
+                </div>
+
+                <div class="devis-grid">
+                    {% set count = 0 %}
+                    {% for devis in devis_recus %}
+                        {% if devis.chantier.id == chantier.id %}
+                            {% set count = count + 1 %}
+                            <div class="devis-card {% if devis.statut == 'Accepté' %}is-accepted{% endif %}">
+                                <div class="devis-card-header">
+                                    <span class="entrepreneur-name">{{ devis.entrepreneur.nom }}</span>
+                                    <span class="start-date">Début : {{ devis.dateDebut|date('d/m/Y') }}</span>
+                                </div>
+
+                                <div class="devis-details">
+                                    <table class="prestation-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Prestation</th>
+                                                <th>Qte</th>
+                                                <th>Unit. HT</th>
+                                                <th>Total HT</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% set totalGeneral = 0 %}
+                                            {% for ligne in devis.devisEntrepreneurPrestataires %}
+                                                {# 1. ON CHERCHE LA QUANTITÉ DANS LE DEVIS TYPE DU CHANTIER #}
+                                                {% set qteDemandee = 0 %}
+                                                {% for dt in devis.chantier.devisTypes %}
+                                                    {% for dtp in dt.devisTypePrestations %}
+                                                        {# On compare l'ID du prestataire/prestation #}
+                                                        {% if dtp.prestataire.id == ligne.prestation.id %}
+                                                            {% set qteDemandee = dtp.quantite %}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endfor %}
+
+                                                {# 2. CALCULS #}
+                                                {% set sousTotal = qteDemandee * ligne.prixUnitaire %}
+                                                {% set totalGeneral = totalGeneral + sousTotal %}
+
+                                                <tr>
+                                                    <td>{{ ligne.prestation.libelle }}</td>
+                                                    <td>{{ qteDemandee }}</td>
+                                                    <td>{{ ligne.prixUnitaire|number_format(2, ',', ' ') }} €</td>
+                                                    <td class="text-end">{{ sousTotal|number_format(2, ',', ' ') }} €</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="devis-footer">
+                                    <div class="total-area">
+                                        <span class="label">TOTAL DU DEVIS</span>
+                                        <span class="amount">{{ totalGeneral|number_format(2, ',', ' ') }} €</span>
+                                    </div>
+                                    
+                                    {% if devis.statut == 'En attente' %}
+                                        <form action="{{ path('app_proprietaire_devis_valider', {id: devis.id}) }}" method="POST" class="form-valider-devis">
+                                            <button type="submit" class="btn-choose">Choisir ce devis</button>
+                                        </form>
+                                    {% elseif devis.statut == 'Accepté' %}
+                                        <div class="badge-status accepted">SÉLECTIONNÉ</div>
+                                    {% else %}
+                                        <div class="badge-status cancelled">ANNULÉ</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if count == 0 %}
+                        <div class="no-devis">Aucun devis reçu pour ce chantier.</div>
+                    {% endif %}
+                </div>
+            </section>
+        {% endfor %}
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/proprietaire_comparatif.js') }}"></script>
+{% endblock %}

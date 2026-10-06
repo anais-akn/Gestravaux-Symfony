@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/style/app.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="prestations-container">
+    <div class="header-flex">
+        <h1><i class="fas fa-list-check"></i> Mes Domaines d'Intervention</h1>
+        <a href="{{ path('app_entrepreneur_dashboard') }}" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Retour au Dashboard
+        </a>
+    </div>
+
+    <form action="{{ path('app_entrepreneur_update_prestations') }}" method="POST" class="styled-form">
+        <div class="category-grid">
+            {% for categorie in toutes_les_categories %}
+                <label class="category-card">
+                    <input type="checkbox" name="categories[]" value="{{ categorie.id }}" 
+                        {% if categorie in entrepreneur.categories %}checked{% endif %}>
+                    <div class="card-content">
+                        <div class="icon-box">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <div class="info">
+                            <span class="cat-name">{{ categorie.libelle }}</span>
+                            <span class="cat-count">{{ categorie.prestataires|length }} prestation(s) disponible(s)</span>
+                        </div>
+                        <div class="check-indicator">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                </label>
+            {% endfor %}
+        </div>
+
+        <div class="form-actions">
+            <a href="{{ path('app_entrepreneur_dashboard') }}" class="btn-back">
+                <i class="fas fa-save"></i> Enregistrer mes choix
+            </a>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+/* Fond de la page entière */
+.auth-page-wrapper {
+    background: linear-gradient(135deg, #F4F7FE 0%, #E9EFFF 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* LE RECTANGLE BLANC (La carte) */
+.auth-card {
+    background: #ffffff;
+    border-radius: 40px; /* Bords très arrondis */
+    padding: 3rem;
+    width: 100%;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+}
+
+/* Largeur spécifique pour l'inscription */
+.auth-card-register {
+    max-width: 800px;
+}
+
+/* Design des inputs gris clair */
+.auth-card .form-label {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: #1A2258;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.auth-card .form-control {
+    background-color: #F8F9FF !important;
+    border: none !important;
+    border-radius: 15px !important;
+    padding: 12px 20px !important;
+    height: 50px !important;
+}
+
+/* Le bouton violet/bleu */
+.btn-immosync {
+    background-color: #7E8CE0;
+    border: none;
+    border-radius: 18px;
+    padding: 15px;
+    color: white;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.btn-immosync:hover {
+    background-color: #6B79D1;
+    transform: translateY(-2px);
+    color: white;
+}
+
+.logo-immo { font-weight: 800; color: #E5A13B; font-size: 1.8rem; }
+.logo-sync { font-weight: 800; color: #1A2258; font-size: 1.8rem; }

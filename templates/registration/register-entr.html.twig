@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer un compte - ImmoSync{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {# On s'assure d'inclure le fichier CSS dédié à l'authentification #}
+    <link rel="stylesheet" href="{{ asset('style/auth.css') }}">
+{% endblock %}
+
+{% block body %}
+{# Le wrapper d-flex assure le centrage vertical et horizontal parfait sur toute la page #}
+<div class="d-flex justify-content-center align-items-center min-vh-100 py-5">
+    
+    {# La carte blanche contenant le formulaire #}
+    <div class="auth-container auth-container-large shadow-lg">
+        
+        {# Logo et entête #}
+        <div class="logo-container text-center mb-2">
+            <span class="logo-immo" style="font-weight: 800; color: #E5A13B; font-size: 1.8rem;">IMMO</span><span class="logo-sync" style="font-weight: 800; color: #1A2258; font-size: 1.8rem;">SYNC</span>
+        </div>
+        
+        <h2 class="auth-title mb-4" style="color: #1A2258; font-weight: 800; text-align: center;">Créer un compte</h2>
+
+        <form method="post">
+            {# Ligne 1 : Nom et Siret #}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="inputNom" class="form-label text-uppercase small fw-bold" style="color: #1A2258;">Nom</label>
+                    <input type="text" name="nom" id="inputNom" class="form-control" required placeholder="Ex: Batipro" style="background-color: #F8F9FF; border: none; height: 45px; border-radius: 10px;">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="inputSiret" class="form-label text-uppercase small fw-bold" style="color: #1A2258;">Siret</label>
+                    <input type="text" name="siret" id="inputSiret" class="form-control" required placeholder="14 chiffres" style="background-color: #F8F9FF; border: none; height: 45px; border-radius: 10px;">
+                </div>
+            </div>
+
+            {# Ligne 2 : Email et Téléphone #}
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="inputEmail" class="form-label text-uppercase small fw-bold" style="color: #1A2258;">Email</label>
+                    <input type="email" name="email" id="inputEmail" class="form-control" required placeholder="contact@entreprise.fr" style="background-color: #F8F9FF; border: none; height: 45px; border-radius: 10px;">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="inputTel" class="form-label text-uppercase small fw-bold" style="color: #1A2258;">Téléphone</label>
+                    <input type="tel" name="telephone" id="inputTel" class="form-control" required placeholder="06.." style="background-color: #F8F9FF; border: none; height: 45px; border-radius: 10px;">
+                </div>
+            </div>
+
+            {# Ligne 3 : Adresse complète #}
+            <div class="mb-3">
+                <label for="inputAdresse" class="form-label text-uppercase small fw-bold" style="color: #1A2258;">Adresse</label>
+                <input type="text" name="adresse" id="inputAdresse" class="form-control" required placeholder="N° et nom de rue" style="background-color: #F8F9FF; border: none; height: 45px; border-radius: 10px;">
+            </div>
+
+            {# Ligne 4 : Ville et CP #}
+            <div class="row">
+                <div class="col-md-8 mb-3">
+                    <label for="inputVille" class="form-label text-uppercase small fw-bold" style="color: #1A2258;">Ville</label>
+                    <input type="text" name="ville" id="inputVille" class="form-control" required style="background-color: #F8F9FF; border: none; height: 45px; border-radius: 10px;">
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label for="inputCP" class="form-label text-uppercase small fw-bold" style="color: #1A2258;">Code Postal</label>
+                    <input type="text" name="codePostal" id="inputCP" class="form-control" required style="background-color: #F8F9FF; border: none; height: 45px; border-radius: 10px;">
+                </div>
+            </div>
+
+            {# Ligne 5 : Mot de passe #}
+            <div class="mb-3">
+                <label for="inputPassword" class="form-label text-uppercase small fw-bold" style="color: #1A2258;">Mot de passe</label>
+                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="new-password" required placeholder="••••••••" style="background-color: #F8F9FF; border: none; height: 45px; border-radius: 10px;">
+            </div>
+
+            {# Case à cocher Conditions #}
+            <div class="mb-4 form-check d-flex align-items-center">
+                <input type="checkbox" name="agreeTerms" class="form-check-input me-2" id="agreeTerms" required style="margin-top: 0; cursor: pointer;">
+                <label class="form-check-label" for="agreeTerms" style="font-size: 0.85rem; color: #6B7280; cursor: pointer;">
+                    J'accepte les conditions d'utilisation
+                </label>
+            </div>
+
+            {# Bouton de validation #}
+            <button class="btn btn-auth w-100 py-3 fw-bold shadow-sm" type="submit" style="background-color: #7E8CE0; border: none; border-radius: 15px; color: white;">
+                S'inscrire
+            </button>
+        </form>
+
+        {# Lien de redirection #}
+        <div class="auth-footer text-center mt-4" style="font-size: 0.9rem; color: #6B7280;">
+            Déjà un compte ? <a href="{{ path('app_login') }}" style="color: #7E8CE0; text-decoration: none; font-weight: 700;">Connectez-vous ici</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

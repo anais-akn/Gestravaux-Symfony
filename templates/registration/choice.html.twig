@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ImmoSync - Choisir un profil{% endblock %}
+
+{% block body %}
+<div class="page-selection">
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-immo">IMMO</span><span class="logo-sync">SYNC</span>
+        </div>
+        <a href="{{ path('app_login') }}" class="btn-top">Se connecter</a>
+    </header>
+
+    <main class="content">
+        <h1 class="title">Profils</h1>
+
+        <div class="cards-grid">
+            {# Carte Entrepreneur #}
+            <a href="{{ path('app_register_entrepreneur') }}" class="card card-orange">
+                <div class="card-inner">
+                    <img src="{{ asset('image/pageChoix/entrepreneur.png') }}" alt="Entrepreneur" class="profile-img">
+                    <span class="label">Entrepreneur</span>
+                </div>
+            </a>
+
+            {# Carte Inspecteur #}
+            <a href="{{ path('app_register_inspecteur') }}" class="card card-blue">
+                <div class="card-inner">
+                    <img src="{{ asset('image/pageChoix/inspecteur.png') }}" alt="Inspecteur" class="profile-img">
+                    <span class="label">Inspecteur</span>
+                </div>
+            </a>
+
+            {# Carte Propriétaire #}
+            <a href="{{ path('app_register_proprietaire') }}" class="card card-purple">
+                <div class="card-inner">
+                    <img src="{{ asset('image/pageChoix/proprietaire.png') }}" alt="Propriétaire" class="profile-img">
+                    <span class="label">Propriétaire</span>
+                </div>
+            </a>
+        </div>
+
+        <p class="footer-text">Veuillez sélectionner votre profil</p>
+    </main>
+</div>
+{% endblock %}

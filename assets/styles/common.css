@@ -1,0 +1,121 @@
+/* ============================================================
+   COMMON STYLES - Utilisé par toutes les pages
+   ============================================================ */
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #9DAAF2 0%, #7E8CE0 100%);
+    --dark-blue: #2D2D5A;
+    --accent-orange: #E6A13B;
+    --bg-light: #F4F7FE;
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --status-open: #FFAD1F;
+    --status-done: #42B983;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-light);
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    margin: 0;
+}
+
+/* Conteneur global */
+.container {
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+/* Utilitaires Flexbox */
+.d-flex { display: flex; }
+.justify-content-between { justify-content: space-between; }
+.justify-content-center { justify-content: center; }
+.align-items-center { align-items: center; }
+
+/* Logo IMMOSYNC - Styles universels */
+.logo-container {
+    font-size: 2.4rem;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+}
+
+.logo-immo {
+    color: var(--accent-orange);
+}
+
+.logo-sync {
+    color: var(--dark-blue);
+}
+
+/* Boutons communs */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(126, 140, 224, 0.5);
+}
+
+.btn-danger {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-danger:hover {
+    opacity: 0.9;
+}
+
+/* Badges */
+.badge {
+    display: inline-block;
+    padding: 8px 15px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.badge-role {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive base */
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+    }
+
+    .logo-container {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+
+    .logo-container {
+        font-size: 1.4rem;
+    }
+}

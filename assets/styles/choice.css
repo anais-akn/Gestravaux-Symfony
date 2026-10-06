@@ -1,0 +1,165 @@
+/* ============================================================
+   PAGE CHOICE - Sélection des profils
+   ============================================================ */
+
+body {
+    background-color: rgb(255, 255, 255);
+}
+
+:root {
+    --bg-light: #f8f9fa;
+    --orange-soft: #fff6e9;
+    --blue-soft: #e7f6f8;
+    --purple-soft: #f1edff;
+}
+
+body {
+    background-color: var(--bg-light);
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar & Logo */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 80px;
+    align-items: center;
+}
+
+.logo-immo {
+    color: #d69e2e;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.logo-sync {
+    color: #00235b;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.btn-top {
+    background: #a0a0a0;
+    color: white;
+    padding: 8px 30px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* Contenu */
+.content {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.title {
+    color: #ccc;
+    font-size: 4rem;
+    margin-bottom: 50px;
+    font-weight: 300;
+}
+
+.cards-grid {
+    display: flex;
+    justify-content: center;
+    gap: 35px;
+}
+
+.card {
+    text-decoration: none;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.card-inner {
+    width: 220px;
+    height: 280px;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+}
+
+.profile-img {
+    width: 120px;
+    height: auto;
+    margin-bottom: 15px;
+    mix-blend-mode: multiply;
+}
+
+/* Couleurs de fond des cartes */
+.card-orange .card-inner {
+    background-color: var(--orange-soft);
+}
+
+.card-blue .card-inner {
+    background-color: var(--blue-soft);
+}
+
+.card-purple .card-inner {
+    background-color: var(--purple-soft);
+}
+
+/* Couleurs du texte */
+.label {
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.card-orange .label {
+    color: #b7791f;
+}
+
+.card-blue .label {
+    color: #2c7a7b;
+}
+
+.card-purple .label {
+    color: #553c9a;
+}
+
+.footer-text {
+    margin-top: 50px;
+    color: #999;
+    font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 20px 40px;
+    }
+
+    .cards-grid {
+        gap: 20px;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .cards-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .title {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+}

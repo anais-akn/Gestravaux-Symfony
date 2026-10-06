@@ -1,0 +1,36 @@
+services:
+  database:
+    container_name: tp3-database
+    image: mariadb:10.11.2
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      MYSQL_DATABASE: app_db
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'no'
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - ./var/dbdata:/var/lib/mysql
+    networks:
+      - tp3_network
+
+  phpmyadmin:
+    container_name: tp3-pma
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+      UPLOAD_LIMIT: 1G
+      MEMORY_LIMIT: 512M
+      MAX_EXECUTION_TIME: 0
+    restart: always
+    links:
+      - database
+    networks:
+      - tp3_network
+
+networks:
+  tp3_network:

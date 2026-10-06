@@ -1,0 +1,17 @@
+name: Discord Commit Ping
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send message to Discord
+        run: |
+          curl -H "Content-Type: application/json" \
+          -d '{
+            "content": "@everyone 🚨 Nouveau commit sur **${{ github.repository }}** par ${{ github.actor }} 👀"
+          }' \
+          ${{ secrets.DISCORD_WEBHOOK }}

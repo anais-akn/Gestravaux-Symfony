@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard Inspecteur - ImmoSync{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/inspecteur.css') }}">
+{% endblock %}
+
+{% block body %}
+<!-- HEADER -->
+<nav class="owner-navbar">
+    <div class="header-flex">
+        <div class="logo-area">
+            <span class="logo-immo">IMMO</span><span class="logo-sync">SYNC</span>
+        </div>
+
+        <div style="text-align: center; flex: 1;">
+            <p style="margin: 0; color: #666; font-size: 0.95rem;">Bienvenue, {{ app.user.prenom }} {{ app.user.nom }}</p>
+        </div>
+
+        <div style="background: #f0f0f0; padding: 8px 16px; border-radius: 20px; font-weight: 600; color: #2D2D5A; white-space: nowrap; font-size: 0.9rem;">
+            Inspecteur
+        </div>
+    </div>
+</nav>
+
+<!-- CONTENU PRINCIPAL -->
+<div class="main-content">
+    <h1 class="page-title">Mes chantiers en cours</h1>
+    <div class="chantier-grid">
+        {% for chantier in chantiers %}
+            <div class="chantier-card">
+                <span class="status-badge">{{ chantier.statut|upper }}</span>
+
+                <h3 class="address">{{ chantier.bien.adresse }}</h3>
+                <p class="city">{{ chantier.bien.ville }} ({{ chantier.bien.codePostal }})</p>
+
+                <p class="desc">{{ chantier.description }}</p>
+
+                <div class="card-footer">
+                    <span>Créé le {{ chantier.dateCreation|date('d/m/Y') }}</span>
+                    <a href="{{ path('app_inspecteur_detail', {'id': chantier.id}) }}" style="color: #7E8CE0; text-decoration: none; font-weight: 600;">
+                        Voir →
+                    </a>
+                </div>
+            </div>
+        {% else %}
+            <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; background: white; border-radius: 16px;">
+                <p style="color: #999; font-size: 1rem;">Vous n'avez aucun chantier à inspecter pour le moment.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

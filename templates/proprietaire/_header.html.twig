@@ -1,0 +1,12 @@
+<header class="owner-header">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div>
+            <h2 class="m-0">Bienvenue sur votre espace propriétaire, {{ app.user.prenom }} {{ app.user.nom }}</h2>
+        </div>
+        <div class="header-actions">
+            <a href="{{ path('app_proprietaire_dashboard') }}" class="btn btn-outline-light">Mon Dashboard</a>
+            <a href="{{ path('app_proprietaire_comparatif') }}" class="btn btn-info text-white">Comparer les Devis</a>
+            <a href="{{ path('app_logout') }}" class="btn btn-danger">Déconnexion</a>
+        </div>
+    </div>
+</header>

@@ -1,0 +1,1006 @@
+/* ============================================================
+   APP.CSS - Architecture CSS Refactorisée
+   
+   IMPORTANT: Tous les styles CSS ont été organisés dans des
+   fichiers séparés pour une meilleure maintenabilité.
+   
+   STRUCTURE ACTUELLE:
+   ============================================================
+   
+   common.css
+   - Variables CSS globales (:root)
+   - Styles de base (body, containers)
+   - Composants réutilisables (buttons, badges)
+   - Media queries communes
+   
+   choice.css
+   - Page de sélection des profils
+   - Cards de profils
+   - Responsive design
+   
+   login.css
+   - Page de connexion
+   - Formulaires
+   - Animations
+   
+   registration.css
+   - Pages d'enregistrement (registre-choice, register-entr, register)
+   - Formulaires multi-champs
+   - Responsive design
+   
+   dashboard.css
+   - Dashboard propriétaire
+   - Grilles de chantiers
+   - Responsive design
+   
+   entrepreneur.css
+   - Dashboard entrepreneur
+   - Grilles de projets
+   - Responsive design
+   
+   inspector.css
+   - Dashboard inspecteur
+   - Cartes de missions
+   - Responsive design
+   
+   ============================================================
+   
+   COMMENT AJOUTER UN NOUVEAU STYLE:
+   
+   1. Identifiez la page concernée
+   2. Trouvez le fichier CSS correspondant
+   3. Ajoutez vos styles à la fin du fichier
+   4. Testez les media queries
+   
+   COMMENT IMPORTER DE NOUVEAUX CSS:
+   
+   Modifiez templates/base.html.twig et ajoutez une ligne:
+   <link rel="stylesheet" href="{{ asset('styles/votre-fichier.css') }}">
+   
+   ============================================================ */
+/* --- RESET DU CENTRAGE (C'est ça qui bloquait) --- */
+html, body {
+    height: auto !important; /* Annule le 100vh du login */
+    display: block !important; /* Annule le flex center du login */
+    overflow-y: auto !important; /* Redonne le scroll */
+    background-color: #F4F7FE;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- HEADER FULL WIDTH --- */
+.owner-navbar {
+    width: 100%;
+    background: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    position: sticky; /* Reste en haut au scroll */
+    top: 0;
+    z-index: 1000;
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.logo-area { font-size: 1.6rem; font-weight: 900; }
+.logo-immo { color: #E6A13B; }
+.logo-sync { color: #2D2D5A; }
+
+/* --- GRILLE DE CHANTIERS (3 PAR LIGNE) --- */
+.main-content {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    color: #2D2D5A;
+    margin-bottom: 30px;
+    font-weight: 800;
+}
+
+.chantier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* FORCE 3 COLONNES */
+    gap: 25px;
+}
+
+/* --- CARTES CARRÉES --- */
+.chantier-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(45, 45, 90, 0.05);
+    border: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    min-height: 250px;
+}
+
+.status-badge {
+    color: #42B983;
+    font-weight: 800;
+    font-size: 0.7rem;
+    margin-bottom: 15px;
+}
+
+.address { font-size: 1.2rem; font-weight: 700; margin: 0; color: #2D2D5A; }
+.city { color: #888; margin-bottom: 15px; }
+.desc { font-size: 0.9rem; color: #666; flex-grow: 1; }
+
+.card-footer {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #aaa;
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) { .chantier-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .chantier-grid { grid-template-columns: 1fr; } }
+
+/*comparatif du proprio*/
+/* --- RESET ET LAYOUT --- */
+html, body {
+    display: block !important;
+    height: auto !important;
+    background-color: #F4F7FE;
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.owner-navbar {
+    width: 100%;
+    background: white;
+    padding: 1.2rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.logo-area { font-size: 1.5rem; font-weight: 900; }
+.logo-immo { color: #E6A13B; }
+.logo-sync { color: #2D2D5A; }
+
+.nav-links a {
+    text-decoration: none;
+    color: #666;
+    margin-left: 25px;
+    font-weight: 600;
+}
+
+.nav-links a.active { color: #2D2D5A; border-bottom: 2px solid #2D2D5A; }
+
+/* --- CONTENU --- */
+.main-content {
+    max-width: 1300px;
+    margin: 40px auto;
+    padding: 0 30px;
+}
+
+.chantier-section {
+    margin-bottom: 60px;
+}
+
+.chantier-header {
+    margin-bottom: 25px;
+    border-left: 5px solid #E6A13B;
+    padding-left: 20px;
+}
+
+.chantier-header h2 { margin: 0; color: #2D2D5A; }
+.chantier-info { color: #888; font-size: 0.95rem; }
+
+/* --- GRILLE DE DEVIS (3 PAR LIGNE) --- */
+.devis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.devis-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #eee;
+}
+
+.devis-card.is-accepted { border: 2px solid #42B983; }
+
+.devis-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.entrepreneur-name { font-weight: 800; color: #2D2D5A; font-size: 1.1rem; }
+.start-date { font-size: 0.85rem; color: #aaa; }
+
+/* --- TABLEAU DES PRESTATIONS --- */
+.prestation-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-bottom: 20px;
+}
+
+.prestation-table th {
+    text-align: left;
+    color: #bbb;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.prestation-table td {
+    padding: 10px 0;
+    border-bottom: 1px solid #f9f9f9;
+}
+
+.text-end { text-align: right; }
+
+/* --- FOOTER DE CARTE --- */
+.devis-footer {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 2px dashed #f0f0f0;
+}
+
+.total-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.total-area .label { font-weight: 700; color: #aaa; }
+.total-area .amount { font-size: 1.4rem; font-weight: 900; color: #2D2D5A; }
+
+.btn-choose {
+    width: 100%;
+    background: linear-gradient(135deg, #9DAAF2 0%, #7E8CE0 100%);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-choose:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(126, 140, 224, 0.4); }
+
+.badge-status {
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 800;
+    font-size: 0.8rem;
+}
+
+.badge-status.accepted { background: #E7F6F0; color: #42B983; }
+.badge-status.cancelled { background: #FFF0F0; color: #EB5757; }
+
+/* Utilitaires */
+.d-flex { display: flex; }
+.justify-content-between { justify-content: space-between; }
+.align-items-center { align-items: center; }
+
+/*page register entrepreuneur*/
+:root {
+    --primary-gradient: linear-gradient(135deg, #9DAAF2 0%, #7E8CE0 100%);
+    --dark-blue: #2D2D5A;
+    --accent-orange: #E6A13B;
+    --glass-bg: rgba(255, 255, 255, 0.95);
+}
+
+body {
+    background-color: #F0F3FF;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(157, 170, 242, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(230, 161, 59, 0.1) 0px, transparent 50%);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto; /* Permet de défiler si le formulaire est long */
+    padding: 40px 20px;
+}
+
+.register-container {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.register-card {
+    background: var(--glass-bg);
+    width: 100%;
+    padding: 2.5rem;
+    border-radius: 35px;
+    box-shadow: 0 25px 50px -12px rgba(45, 45, 90, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Logo */
+.logo-container {
+    font-size: 2.4rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    letter-spacing: -1.5px;
+}
+.logo-immo { color: var(--accent-orange); }
+.logo-sync { color: var(--dark-blue); }
+
+.register-card h1 {
+    color: var(--dark-blue);
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 800;
+}
+
+/* Formulaire */
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 5px;
+}
+
+.form-col, .col-8, .col-4 { flex: 1; }
+.col-8 { flex: 2; }
+.col-4 { flex: 1; }
+
+.form-label {
+    font-weight: 700;
+    color: var(--dark-blue);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.form-input {
+    width: 100%;
+    background: #F8FAFF;
+    border: 2px solid transparent;
+    border-radius: 14px;
+    padding: 12px 18px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    margin-bottom: 1rem;
+}
+
+.form-input:focus {
+    outline: none;
+    background: white;
+    border-color: #9DAAF2;
+    box-shadow: 0 10px 20px rgba(157, 170, 242, 0.1);
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0 20px 0;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.btn-register {
+    width: 100%;
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 16px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(126, 140, 224, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-register:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(126, 140, 224, 0.5);
+}
+
+.login-link {
+    display: block;
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.login-link span {
+    color: #7E8CE0;
+    font-weight: 700;
+}
+
+/*page register.html*/
+:root {
+    --primary-gradient: linear-gradient(135deg, #9DAAF2 0%, #7E8CE0 100%);
+    --dark-blue: #2D2D5A;
+    --accent-orange: #E6A13B;
+    --glass-bg: rgba(255, 255, 255, 0.95);
+}
+
+body {
+    background-color: #F0F3FF;
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(157, 170, 242, 0.15) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(230, 161, 59, 0.1) 0px, transparent 50%);
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto; 
+    padding: 40px 20px;
+}
+
+.register-card {
+    background: var(--glass-bg);
+    width: 100%;
+    max-width: 550px;
+    padding: 3rem;
+    border-radius: 35px;
+    box-shadow: 0 25px 50px -12px rgba(45, 45, 90, 0.15);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Logo IMMOSYNC */
+.logo-container {
+    text-align: center;
+    font-size: 2.4rem;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    letter-spacing: -1.5px;
+}
+.logo-immo { color: var(--accent-orange); }
+.logo-sync { color: var(--dark-blue); }
+
+.subtitle {
+    text-align: center;
+    color: #888;
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    color: var(--dark-blue);
+    font-size: 1.6rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* Formulaire */
+.form-label {
+    font-weight: 700;
+    color: var(--dark-blue);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    display: block;
+    margin-left: 5px;
+}
+
+.form-control {
+    width: 100%;
+    background: #F8FAFF !important;
+    border: 2px solid transparent !important;
+    border-radius: 14px !important;
+    padding: 12px 18px !important;
+    font-size: 0.95rem !important;
+    transition: all 0.3s ease !important;
+    margin-bottom: 1rem;
+}
+
+.form-control:focus {
+    outline: none !important;
+    background: white !important;
+    border-color: #9DAAF2 !important;
+    box-shadow: 0 10px 20px rgba(157, 170, 242, 0.1) !important;
+}
+
+/* Bouton */
+.btn-register {
+    width: 100%;
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    border-radius: 16px;
+    padding: 16px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    box-shadow: 0 10px 25px rgba(126, 140, 224, 0.4);
+    transition: all 0.3s ease;
+}
+
+.btn-register:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(126, 140, 224, 0.5);
+}
+
+.login-footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.login-footer a {
+    color: #7E8CE0;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+}
+ /* PAGE INSPECTEUR APRES CONNEXION !!!!!!!!!!!!!!!!!!!!!!!!*/
+ /* --- Variables Inspecteur --- */
+:root {
+    --inspecteur-gradient: linear-gradient(135deg, #2D2D5A 0%, #4E4E8E 100%);
+    --accent-blue: #4A90E2;
+    --status-open: #FFAD1F;
+    --status-done: #42B983;
+}
+
+body { background-color: #F0F2F5; font-family: 'Inter', sans-serif; }
+
+/* Header spécifique Inspecteur */
+.inspecteur-header {
+    background: var(--inspecteur-gradient);
+    padding: 2rem 0 5rem 0;
+    color: white;
+    border-radius: 0 0 30px 30px;
+}
+
+.badge-role {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 5px 15px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Cartes de Mission style Mobile */
+.mission-card {
+    background: white;
+    border-radius: 20px;
+    border: none;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.mission-status {
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 8px;
+    text-transform: uppercase;
+}
+
+.map-preview {
+    height: 120px;
+    background: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #adb5bd;
+}
+
+.btn-inspect {
+    background: var(--inspecteur-gradient);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    font-weight: 600;
+    border-radius: 12px;
+    transition: 0.3s;
+}
+
+.diagnostic-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/*index entrepreneur*/
+/* --- HEADER NAVIGATION --- */
+.header-nav {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    text-decoration: none;
+    color: #666;
+    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.nav-item i { margin-right: 5px; }
+
+.nav-item:hover, .nav-item.active {
+    background: #f0f2ff;
+    color: #2D2D5A;
+}
+
+.badge-pro {
+    background: #E6A13B;
+    color: white;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+/* --- SECTION HEADERS --- */
+.section-header {
+    margin-bottom: 25px;
+    margin-top: 40px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* --- CARTES ACCEPTÉES (STYLE LISTE/TABLE) --- */
+.accepted-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.accepted-card {
+    background: white;
+    border-radius: 15px;
+    border-left: 8px solid #42B983; /* Vert pour succès */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.accepted-card-header {
+    padding: 20px 25px;
+    background: #fcfcfc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+}
+
+.accepted-card-header h3 { margin: 0; font-size: 1.2rem; color: #2D2D5A; }
+
+.work-date { text-align: right; }
+.date-label { display: block; font-size: 0.75rem; color: #aaa; text-transform: uppercase; }
+.date-value { font-weight: 800; color: #42B983; }
+
+.table-prestations {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-prestations th {
+    background: #f8f9fa;
+    padding: 12px 25px;
+    text-align: left;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.table-prestations td {
+    padding: 15px 25px;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.total-final {
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #2D2D5A;
+}
+
+.accepted-card-footer {
+    padding: 15px 25px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    background: #f8f9fa;
+}
+
+.btn-action-light { border: 1px solid #ddd; background: white; padding: 8px 15px; border-radius: 8px; cursor: pointer; }
+.btn-action-success { background: #42B983; color: white; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; }
+.entrepreneur-wrapper {
+    width: 100%;
+}
+
+/* HEADER FIXÉ SUR TOUTE LA LARGEUR */
+.main-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; /* Prend toute la largeur de la fenêtre */
+    background: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    z-index: 9999;
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px; /* Largeur max pour pas que ça soit trop écarté sur les grands écrans */
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* ON Pousse LE CONTENU VERS LE BAS */
+.container-main-content {
+    padding-top: 120px; /* Doit être supérieur à la hauteur du header */
+}
+
+/* RESET BOOTSTRAP SI BESOIN */
+.header-title { font-size: 1.25rem; font-weight: 800; color: #4f46e5; margin: 0; }
+.header-subtitle { font-size: 0.9rem; color: #64748b; margin: 0; }
+
+.btn-logout-custom {
+    color: #dc3545;
+    text-decoration: none;
+    font-weight: 600;
+    border: 1px solid #f8d7da;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: 0.2s;
+}
+
+.btn-logout-custom:hover { background: #fff5f5; border-color: #f5c2c7; }
+
+/* STYLE DES CARTES */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.item-card {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+.category-selection-card {
+    background: #fdfdfd;
+    border: 2px solid #f1f1f1;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.category-selection-card:hover {
+    border-color: #2D2D5A;
+    background: #f8f9ff;
+}
+
+.category-selection-card label {
+    width: 100%;
+    cursor: pointer;
+    margin: 0;
+}
+
+.category-selection-card input[type="checkbox"]:checked + .cat-details {
+    color: #2D2D5A;
+}
+
+/* Style de la checkbox Bootstrap sur-mesure */
+.form-check-input:checked {
+    background-color: #42B983;
+    border-color: #42B983;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+/*mes prestations*/
+:root {
+    --primary: #4361ee;
+    --bg-light: #f8f9fa;
+    --text-dark: #2b2d42;
+    --border-color: #e0e0e0;
+}
+
+.prestations-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header-flex h1 {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+}
+
+.btn-back {
+    text-decoration: none;
+    color: #666;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s;
+}
+
+.btn-back:hover { background: #fff; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+
+/* Grille de cartes */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.category-card {
+    cursor: pointer;
+    position: relative;
+}
+
+.category-card input[type="checkbox"] {
+    display: none; /* On cache la checkbox par défaut */
+}
+
+.card-content {
+    background: white;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.icon-box {
+    width: 50px;
+    height: 50px;
+    background: var(--bg-light);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    margin-right: 15px;
+}
+
+.cat-name {
+    display: block;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.cat-count {
+    color: #888;
+    font-size: 0.85rem;
+}
+
+.check-indicator {
+    margin-left: auto;
+    font-size: 1.2rem;
+    color: #ccc;
+    transition: 0.2s;
+}
+
+/* État coché */
+.category-card input:checked + .card-content {
+    border-color: var(--primary);
+    background-color: #f0f4ff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(67, 97, 238, 0.1);
+}
+
+.category-card input:checked + .card-content .check-indicator {
+    color: var(--primary);
+}
+
+/* Bouton de sauvegarde */
+.form-actions {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.btn-save {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(67, 97, 238, 0.2);
+    transition: 0.3s;
+}
+
+.btn-save:hover {
+    transform: scale(1.05);
+    background: #304ed0;
+}
+.btn-complete-work {
+    background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-complete-work:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    filter: brightness(1.1);
+}
+
+.btn-complete-work i {
+    font-size: 1rem;
+}

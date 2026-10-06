@@ -1,0 +1,193 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/style/app.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block body %}
+<div class="entrepreneur-wrapper">
+    {# --- HEADER --- #}
+    <header class="main-header">
+        <div class="header-content">
+            <div class="brand-info">
+                <div class="logo-area">
+                    <span class="logo-immo">IMMO</span><span class="logo-sync">SYNC</span>
+                </div>
+                <p class="header-subtitle">Espace de <strong>{{ entrepreneur.nom }}</strong></p>
+            </div>
+
+            <nav class="header-nav">
+                <a href="{{ path('app_entrepreneur_dashboard') }}" class="nav-item active"><i class="fas fa-th-large"></i> Dashboard</a>
+                <a href="{{ path('app_entrepreneur_prestations') }}" class="nav-item"><i class="fas fa-tools"></i> Mes Prestations</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="{{ path('app_logout') }}" class="btn-logout-custom">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container-main-content">
+        <div class="container">
+            
+            {# SECTION 1 : NOUVELLES DEMANDES #}
+            <div class="section-header">
+                <h2 class="section-main-title"><i class="fas fa-bell me-2"></i>Appels d'offres reçus</h2>
+            </div>
+            
+            <div class="card-grid mb-5">
+                {% for type in devis_types %}
+                    <div class="item-card">
+                        <div class="card-badge-top">Nouveau</div>
+                        <span class="card-label">Réf: TYPE-{{ type.id }}</span>
+                        <h5 class="card-title">{{ type.intitule }}</h5>
+                        <p class="location-info">
+                            <i class="fas fa-map-marker-alt"></i> {{ type.chantier.bien.ville }} ({{ type.chantier.bien.codePostal }})
+                        </p>
+                        <a href="{{ path('app_entrepreneur_devis_completer', {'id': type.id}) }}" class="btn-main mt-3">
+                            Répondre à l'offre
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+
+            {# SECTION 2 : DEVIS EN ATTENTE #}
+            <div class="section-header">
+                <h2 class="section-main-title"><i class="fas fa-hourglass-half me-2"></i>Devis en attente de réponse</h2>
+            </div>
+
+            <div class="card-grid mb-5">
+                {% for devis in entrepreneur.devisEntrepreneurs %}
+                    {% if devis.statut != 'Accepté' and devis.statut != 'Annulé' and devis.statut != 'Terminé' %}
+                        <div class="item-card pending">
+                            <div class="d-flex justify-content-between">
+                                <span class="card-label">DEVIS #{{ devis.id }}</span>
+                                <span class="pill-waiting">{{ devis.statut }}</span>
+                            </div>
+                            <h5 class="card-title">{{ devis.chantier.bien.adresse }}</h5>
+                            <p class="text-muted small">{{ devis.chantier.bien.ville }}</p>
+                            
+                            <div class="price-tag">
+                                {% set totalHt = 0 %}
+                                {% for ligne in devis.devisEntrepreneurPrestataires %}
+                                    {% set qte = 0 %}
+                                    {% for dt in devis.chantier.devisTypes %}
+                                        {% for dtp in dt.devisTypePrestations %}
+                                            {% if dtp.prestataire.id == ligne.prestation.id %}{% set qte = dtp.quantite %}{% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                    {% set totalHt = totalHt + (ligne.prixUnitaire * qte) %}
+                                {% endfor %}
+                                <span class="amount">{{ totalHt|number_format(2, ',', ' ') }} €</span>
+                                <span class="currency">HT</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+            {# SECTION 3 : CHANTIERS VALIDÉS #}
+            <div class="section-header mt-5">
+                <h2 class="section-main-title text-success">
+                    <i class="fas fa-check-circle me-2"></i>Chantiers validés (Acceptés)
+                </h2>
+            </div>
+
+            <div class="accepted-grid">
+                {% for devis in entrepreneur.devisEntrepreneurs %}
+                    {% if devis.statut == 'Accepté' %}
+                        <div class="accepted-card mb-4">
+                            <div class="accepted-card-header">
+                                <div class="property-details">
+                                    <span class="badge bg-success mb-2">Commande n°{{ devis.id }}</span>
+                                    <h3>{{ devis.chantier.bien.adresse }}</h3>
+                                    <p class="text-muted mb-0">
+                                        <i class="fas fa-map-marker-alt me-1"></i> 
+                                        {{ devis.chantier.bien.ville }} ({{ devis.chantier.bien.codePostal }})
+                                    </p>
+                                </div>
+                                <div class="work-date text-end">
+                                    <span class="date-label">Démarrage prévu</span>
+                                    <span class="date-value">
+                                        {{ devis.dateDebut ? devis.dateDebut|date('d/m/Y') : 'À définir' }}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="accepted-card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table-prestations mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Prestation</th>
+                                                <th class="text-center">Quantité</th>
+                                                <th class="text-center">P.U. HT</th>
+                                                <th class="text-end">Total HT</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% set totalAcceptHt = 0 %}
+                                            {% for ligne in devis.devisEntrepreneurPrestataires %}
+                                                {% set qte = 0 %}
+                                                {% if devis.chantier.devisTypes is not empty %}
+                                                    {% for dt in devis.chantier.devisTypes %}
+                                                        {% for dtp in dt.devisTypePrestations %}
+                                                            {% if dtp.prestataire.id == ligne.prestation.id %}
+                                                                {% set qte = dtp.quantite %}
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    {% endfor %}
+                                                {% endif %}
+
+                                                {% set sousTotal = ligne.prixUnitaire * qte %}
+                                                {% set totalAcceptHt = totalAcceptHt + sousTotal %}
+                                                
+                                                <tr>
+                                                    <td>
+                                                        <div class="fw-bold text-dark">{{ ligne.prestation.libelle }}</div>
+                                                        <small class="text-muted">Réf: #{{ ligne.prestation.id }}</small>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span class="badge rounded-pill bg-light text-dark border">{{ qte }}</span>
+                                                    </td>
+                                                    <td class="text-center">{{ ligne.prixUnitaire|number_format(2, ',', ' ') }} €</td>
+                                                    <td class="text-end fw-bold">{{ sousTotal|number_format(2, ',', ' ') }} €</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                        <tfoot>
+                                            <tr class="bg-light">
+                                                <td colspan="3" class="text-end py-3"><strong>TOTAL :</strong></td>
+                                                <td class="text-end py-3 total-final text-success">
+                                                    {{ totalAcceptHt|number_format(2, ',', ' ') }} € HT
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="accepted-card-footer">
+                                <form action="{{ path('app_entrepreneur_devis_terminer', {'id': devis.id}) }}" method="POST" onsubmit="return confirm('Confirmez-vous la fin des travaux ?');">
+                                    <button type="submit" class="btn-complete-work">
+                                        <i class="fas fa-check-double"></i> Terminer le chantier
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/entrepreneur.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - ImmoSync{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('style/auth.css') }}">
+{% endblock %}
+
+{% block body %}
+{# Cette div est la clé pour tout centrer verticalement et horizontalement #}
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+    <div class="auth-container shadow-lg"> {# La classe auth-container a déjà la largeur max de 500px #}
+        <div class="logo-container">
+            <span class="logo-immo">IMMO</span><span class="logo-sync">SYNC</span>
+        </div>
+        <p class="auth-subtitle">Gestion de chantiers simplifiée</p>
+
+        <form method="post">
+            {% if error %}
+                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <div class="mb-4">
+                <label for="username" class="form-label">EMAIL</label>
+                <input type="email" value="{{ last_username }}" name="_username" id="username" class="form-control" autocomplete="email" required autofocus>
+            </div>
+
+            <div class="mb-4">
+                <label for="password" class="form-label">MOT DE PASSE</label>
+                <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+            </div>
+
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button class="btn btn-auth w-100" type="submit">Se connecter</button>
+        </form>
+
+        <div class="auth-footer mt-4">
+            Pas encore membre ? <a href="{{ path('app_register_choice') }}">Créer un compte</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

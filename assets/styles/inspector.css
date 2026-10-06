@@ -1,0 +1,175 @@
+/* --- RESET DU CENTRAGE --- */
+html, body {
+    height: auto !important;
+    display: block !important;
+    overflow-y: auto !important;
+    background-color: #F4F7FE;
+    margin: 0;
+    padding: 0;
+}
+ 
+/* --- HEADER FULL WIDTH --- */
+.owner-navbar {
+    width: 100%;
+    background: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+ 
+.header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+ 
+.logo-area {
+    font-size: 1.6rem;
+    font-weight: 900;
+}
+ 
+.logo-immo {
+    color: #E6A13B;
+}
+ 
+.logo-sync {
+    color: #2D2D5A;
+}
+ 
+/* --- GRILLE DE CHANTIERS (3 PAR LIGNE) --- */
+.main-content {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+ 
+.page-title {
+    font-size: 1.8rem;
+    color: #2D2D5A;
+    margin-bottom: 30px;
+    font-weight: 800;
+    text-align: center;
+}
+ 
+.chantier-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+ 
+/* --- CARTES CARRÉES --- */
+.chantier-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 10px 25px rgba(45, 45, 90, 0.05);
+    border: 1px solid rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    min-height: 250px;
+    transition: all 0.3s ease;
+}
+ 
+.chantier-card:hover {
+    box-shadow: 0 15px 40px rgba(45, 45, 90, 0.12);
+    transform: translateY(-3px);
+}
+ 
+.status-badge {
+    color: #42B983;
+    font-weight: 800;
+    font-size: 0.7rem;
+    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+}
+ 
+.address {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0 0 5px 0;
+    color: #2D2D5A;
+}
+ 
+.city {
+    color: #888;
+    margin: 0 0 15px 0;
+    font-size: 0.9rem;
+}
+ 
+.desc {
+    font-size: 0.9rem;
+    color: #666;
+    flex-grow: 1;
+    margin: 0;
+    line-height: 1.4;
+}
+ 
+.card-footer {
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: #aaa;
+}
+ 
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+    .chantier-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+ 
+@media (max-width: 768px) {
+    .chantier-grid {
+        grid-template-columns: 1fr;
+    }
+ 
+    .logo-area {
+        font-size: 1.3rem;
+    }
+ 
+    .page-title {
+        font-size: 1.4rem;
+    }
+ 
+    .header-flex {
+        gap: 15px;
+    }
+}
+ 
+@media (max-width: 480px) {
+    .owner-navbar {
+        padding: 0.75rem 0;
+    }
+ 
+    .header-flex {
+        flex-direction: column;
+        gap: 10px;
+    }
+ 
+    .logo-area {
+        font-size: 1.1rem;
+    }
+ 
+    .page-title {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+    }
+ 
+    .chantier-card {
+        min-height: 200px;
+        padding: 20px;
+    }
+ 
+    .address {
+        font-size: 1rem;
+    }
+}
+ 

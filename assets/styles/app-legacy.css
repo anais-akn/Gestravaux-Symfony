@@ -1,0 +1,19 @@
+/* ============================================================
+   APP.CSS - Fichier CSS principal
+   
+   Ce fichier importe tous les styles organisés par pages.
+   Le code CSS legacy a été extrait dans des fichiers séparés.
+   
+   Structure:
+   - common.css : Styles communs et base
+   - choice.css : Page de sélection des profils
+   - login.css : Page de connexion
+   - registration.css : Pages d'enregistrement
+   - dashboard.css : Dashboard propriétaire
+   - entrepreneur.css : Dashboard entrepreneur
+   - inspector.css : Dashboard inspecteur
+   ============================================================ */
+
+/* Import des CSS organisés */
+/* Tous les CSS sont maintenant importés dans base.html.twig */
+/* Consultez les fichiers CSS séparés pour les styles spécifiques */
