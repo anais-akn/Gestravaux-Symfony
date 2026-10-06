@@ -11,6 +11,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
  
 #[IsGranted('ROLE_INSPECTEUR')]
 class InspecteurController extends AbstractController
+
 {
     #[Route('/inspecteur/dashboard', name: 'app_inspecteur_dashboard')]
     public function dashboard(ChantierRepository $chantierRepository, InspecteurRepository $inspecteurRepository): Response

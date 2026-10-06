@@ -5,7 +5,7 @@ DELETE FROM prestataire;
 DELETE FROM categorie;
 DELETE FROM bien;
 DELETE FROM entrepreneur;
-DELETE FROM inspecteur;
+DELETE FROM inspecteur; 
 DELETE FROM utilisateur;
 
 -- 1. UTILISATEURS (Hash du mot de passe 'toto')
